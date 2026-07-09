@@ -1,0 +1,112 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg: #faf9f7;
+  --surface: #ffffff;
+  --border: #e8e4de;
+  --text: #1a1a1a;
+  --text-secondary: #6b6560;
+  --accent: #2d6a4f;
+  --accent-light: #e8f5ef;
+  --danger: #c0392b;
+  --radius: 12px;
+  --shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Helvetica Neue', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 16px;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.page-header {
+  width: 100%;
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+.page-header h1 {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.page-header p {
+  margin-top: 6px;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border-radius: var(--radius);
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: opacity 0.15s, transform 0.1s;
+  width: 100%;
+}
+
+.btn:active { transform: scale(0.97); }
+.btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+}
+
+.btn-secondary {
+  background: var(--surface);
+  color: var(--text);
+  border: 1.5px solid var(--border);
+}
+
+.btn-danger {
+  background: #fdecea;
+  color: var(--danger);
+}
+
+.card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  border: 1.5px solid var(--border);
+  box-shadow: var(--shadow);
+  padding: 20px;
+  width: 100%;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 6px;
+  background: var(--border);
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 99px;
+  transition: width 0.4s ease;
+}
