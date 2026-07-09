@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { startGenerate, getStatus, fontFileUrl } from '../api'
 
 const STEPS = [
   '分析笔迹特征...',
@@ -29,13 +30,7 @@ export default function Generate() {
   async function startGeneration(samples) {
     try {
       setStep(1)
-      const res = await fetch('/api/generate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ samples }),
-      })
-      if (!res.ok) throw new Error('生成失败，请重试')
-      const data = await res.json()
+      const data = await startGenerate(samples)
       setTaskId(data.task_id)
       pollStatus(data.task_id)
     } catch (e) {
@@ -46,13 +41,13 @@ export default function Generate() {
   async function pollStatus(id) {
     const interval = setInterval(async () => {
       try {
-        const res = await fetch(`/api/status/${id}`)
-        const data = await res.json()
+        const data = await getStatus(id)
         setStep(Math.min(data.step || 1, STEPS.length - 1))
         if (data.status === 'done') {
           clearInterval(interval)
-          setFontUrl(data.font_url)
-          localStorage.setItem('plog_font_url', data.font_url)
+          const url = fontFileUrl(data.font_url)
+          setFontUrl(url)
+          localStorage.setItem('plog_font_url', url)
           setStep(STEPS.length - 1)
         } else if (data.status === 'error') {
           clearInterval(interval)
